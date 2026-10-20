@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tour Package</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background: #f7eeee;
+            color: #111;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: #16899b;
+            color: white;
+            padding: 25px 15px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 13px 12px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #40b9b5;
+        }
+
+        /* Main content */
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding: 20px 25px;
+            background: #f7eeee;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #aaa;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .topbar a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .admin {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 21px;
+            margin-bottom: 20px;
+        }
+
+        .form-area {
+            max-width: 800px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 30px;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #999;
+            background: white;
+            font-family: inherit;
+            font-size: 15px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 65px;
+            max-width: 800px;
+        }
+
+        button {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .cancel {
+            background: #ed7777;
+            color: white;
+        }
+
+        .update {
+            background: #85cf35;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .main {
+                padding: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="logo">
+            🌐 Travel&<br>Tours
+        </div>
+
+        <a href="Tourist_listhtml.html">⌂ Tourist List</a>
+        <a href="Tourpackage.html" class="active">♧ Tour Package</a>
+        <a href="Addtourist.html">♙ Add Tourist</a>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+        <div class="topbar">
+            <a href="index.html">⇦ Log out</a>
+            <div class="admin">👤 Admin</div>
+        </div>
+
+        <h1>Edit package tour</h1>
+        <h2>Enter the tour package details.</h2>
+
+        <div class="form-area">
+
+            <form id="editTourForm">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label for="tourName">Tour package name:</label>
+                        <input type="text" id="tourName"
+                               placeholder="Tour name" required>
+                    </div>
+
+                    <div>
+                        <label for="destination">Destination</label>
+                        <input type="text" id="destination"
+                               placeholder="Enter destination" required>
+                    </div>
+
+                    <div>
+                        <label for="price">Prices:</label>
+                        <input type="number" id="price"
+                               placeholder="₱" min="0" required>
+                    </div>
+
+                    <div>
+                        <label for="duration">Duration days</label>
+                        <select id="duration" required>
+                            <option value="">Select duration</option>
+                            <option value="3">3 days</option>
+                            <option value="4">4 days</option>
+                            <option value="5">5 days</option>
+                            <option value="6">6 days</option>
+                            <option value="7">7 days</option>
+                            <option value="8">8 days</option>
+                            <option value="9">9 days</option>
+                            <option value="10">10 days</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="buttons">
+                    <button type="button" class="cancel"
+                            onclick="cancelEdit()">Cancel</button>
+
+                    <button type="submit" class="update">
+                        Update Tour
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Same storage key dapat sa Tourpackage.html
+    var storageKey = "tourPackages";
+
+    // Kunin ang package ID mula sa URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var tourId = urlParams.get("id");
+
+    // Kunin ang existing tour packages
+    var tours = JSON.parse(localStorage.getItem(storageKey)) || [];
+
+    // Hanapin ang package na gustong i-edit
+    var selectedTour = null;
+
+    for (var i = 0; i < tours.length; i++) {
+        if (String(tours[i].id) === String(tourId)) {
+            selectedTour = tours[i];
+            break;
+        }
+    }
+
+    // Ipakita ang existing information sa form
+    if (selectedTour) {
+
+        document.getElementById("tourName").value =
+            selectedTour.name || "";
+
+        document.getElementById("destination").value =
+            selectedTour.destination || "";
+
+        document.getElementById("price").value =
+            selectedTour.price || "";
+
+        document.getElementById("duration").value =
+            selectedTour.duration || "";
+
+    } else {
+
+        alert("Tour package not found. Please select a package from the Tour Package list.");
+    }
+
+    // I-save ang updated information
+    document.getElementById("editTourForm").addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        if (!selectedTour) {
+            alert("No tour package selected.");
+            return;
+        }
+
+        var newName = document.getElementById("tourName").value;
+        var newDestination = document.getElementById("destination").value;
+        var newPrice = Number(document.getElementById("price").value);
+        var newDuration = Number(document.getElementById("duration").value);
+
+        // Hanapin ulit ang original package
+        for (var i = 0; i < tours.length; i++) {
+
+            if (String(tours[i].id) === String(tourId)) {
+
+                // Update ang existing record
+                tours[i].name = newName;
+                tours[i].destination = newDestination;
+                tours[i].price = newPrice;
+                tours[i].duration = newDuration;
+
+                break;
+            }
+        }
+
+        // Save sa localStorage
+        localStorage.setItem(storageKey, JSON.stringify(tours));
+
+        alert("Tour package updated successfully!");
+
+        // Bumalik sa Tour Package list
+        window.location.href = "Tourpackage.html";
+    });
+
+    // Cancel: walang babaguhin
+    function cancelEdit() {
+        window.location.href = "Tourpackage.html";
+    }
+</script>
+
+</body>
+</html>

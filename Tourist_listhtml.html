@@ -1,0 +1,603 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourist List - Travel and Tours</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f0f0;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background: #16869a;
+            color: white;
+            padding: 25px 12px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 29px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 45px;
+            line-height: 1.4;
+        }
+
+        .logo span {
+            color: #071d27;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 13px 12px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #45b9bb;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 15px 12px;
+        }
+
+        /* TOP BAR */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #999;
+            padding: 5px 15px 15px;
+            margin-bottom: 35px;
+        }
+
+        .logout {
+            color: #222;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            color: #16869a;
+        }
+
+        .admin {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* PAGE HEADING */
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 0 15px 20px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            font-size: 28px;
+            color: #171717;
+        }
+
+        /* ADD TOURIST */
+        .add-button {
+            display: inline-block;
+            background: #16869a;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 11px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .add-button:hover {
+            background: #116878;
+        }
+
+        /* SEARCH AND FILTER */
+        .tools {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 0 15px 30px;
+        }
+
+        .search-box input {
+            width: 240px;
+            max-width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: 1px solid #999;
+            background: transparent;
+            outline: none;
+        }
+
+        .filter-box select {
+            width: 205px;
+            max-width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: 1px solid #999;
+            background: transparent;
+            outline: none;
+        }
+
+        .search-box input:focus,
+        .filter-box select:focus {
+            border-color: #16869a;
+        }
+
+        /* TABLE */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 650px;
+            border-collapse: collapse;
+            background: #e3f8f5;
+        }
+
+        thead {
+            background: #79e6dc;
+        }
+
+        th, td {
+            padding: 13px 10px;
+            text-align: center;
+            border: 1px solid #b7c9c7;
+            font-size: 14px;
+        }
+
+        th {
+            font-size: 15px;
+        }
+
+        tbody tr:hover {
+            background: #d2f0ec;
+        }
+
+        /* ACTION BUTTONS */
+        .action-button {
+            border: none;
+            border-radius: 8px;
+            padding: 9px 12px;
+            cursor: pointer;
+            margin: 2px;
+            font-size: 12px;
+        }
+
+        .view-button {
+            background: #67afe0;
+            color: #102d44;
+        }
+
+        .edit-button {
+            background: #dce8e5;
+            color: #222;
+        }
+
+        .delete-button {
+            background: #f18c8c;
+            color: #222;
+        }
+
+        .action-button:hover {
+            opacity: 0.75;
+        }
+
+        .empty-message {
+            padding: 25px;
+            text-align: center;
+            color: #666;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+                font-size: 23px;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            .topbar {
+                margin-bottom: 25px;
+            }
+
+            .main-content {
+                padding: 12px 8px;
+            }
+
+            .tools {
+                gap: 12px;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>◉</span> Travel&<br>
+            Tours
+        </div>
+
+        <a href="Tourist_listhtml.html" class="active">
+            ⌂ Tourist List
+        </a>
+
+        <a href="Tourpackage.html">
+            ♧ Tour Package
+        </a>
+
+        <a href="Addtourist.html">
+            ♙ Add Tourist
+        </a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <a href="travel_index.html" class="logout">
+                ⇥ Log out
+            </a>
+
+            <div class="admin">◉ &nbsp; Admin</div>
+
+        </header>
+
+        <!-- PAGE HEADING -->
+        <div class="page-heading">
+
+            <h1>Tourist List</h1>
+
+            <a href="Addtourist.html" class="add-button">
+                + Add Tourist
+            </a>
+
+        </div>
+
+        <!-- SEARCH AND FILTER -->
+        <div class="tools">
+
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="⌕ Search by ID or name"
+                    oninput="displayTourists()"
+                >
+            </div>
+
+            <div class="filter-box">
+                <select
+                    id="filterDestination"
+                    onchange="displayTourists()"
+                >
+                    <option value="">All Tourist</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- TOURIST TABLE -->
+        <div class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Destination</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="touristTable"></tbody>
+            </table>
+
+            <p
+                class="empty-message"
+                id="emptyMessage"
+                style="display: none;"
+            >
+                No tourist records found.
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+
+    // SAMPLE TOURIST DATA
+    var sampleTourists = [
+        {
+            id: "D001",
+            name: "Miley Cyrus",
+            destination: "Boracay",
+            date: "2026-06-13"
+        },
+        {
+            id: "D002",
+            name: "Clark Magpantay",
+            destination: "Palawan",
+            date: "2026-08-20"
+        },
+        {
+            id: "D003",
+            name: "Hale Blue sky",
+            destination: "Baguio",
+            date: "2027-01-02"
+        }
+    ];
+
+    // LOAD TOURISTS FROM LOCAL STORAGE
+    var tourists = JSON.parse(
+        localStorage.getItem("tourists")
+    );
+
+    if (!tourists) {
+        tourists = sampleTourists;
+        saveTourists();
+    }
+
+    // SAVE TOURISTS
+    function saveTourists() {
+
+        localStorage.setItem(
+            "tourists",
+            JSON.stringify(tourists)
+        );
+
+    }
+
+    // DISPLAY TOURISTS
+    function displayTourists() {
+
+        var table = document.getElementById("touristTable");
+
+        var search = document.getElementById("searchInput")
+            .value.toLowerCase();
+
+        var destinationFilter =
+            document.getElementById("filterDestination").value;
+
+        table.innerHTML = "";
+
+        var filteredTourists = tourists.filter(function(tourist) {
+
+            var matchesSearch =
+                String(tourist.id || "").toLowerCase().includes(search) ||
+                String(tourist.name || "").toLowerCase().includes(search);
+
+            var matchesDestination =
+                destinationFilter === "" ||
+                tourist.destination === destinationFilter;
+
+            return matchesSearch && matchesDestination;
+
+        });
+
+        filteredTourists.forEach(function(tourist) {
+
+            var row = table.insertRow();
+
+            row.insertCell().textContent = tourist.id || "---";
+            row.insertCell().textContent = tourist.name || "---";
+            row.insertCell().textContent = tourist.destination || "---";
+            row.insertCell().textContent = formatDate(tourist.date);
+
+            var actions = row.insertCell();
+
+            // VIEW PROFILE BUTTON
+            var viewButton = document.createElement("button");
+
+            viewButton.textContent = "☻";
+            viewButton.className = "action-button view-button";
+            viewButton.title = "View Profile";
+
+            viewButton.onclick = function() {
+
+                // Save the selected tourist
+                localStorage.setItem(
+                    "selectedTourist",
+                    JSON.stringify(tourist)
+                );
+
+                // Open ViewTourist.html
+                window.location.href = "ViewTourist.html";
+
+            };
+
+            // EDIT BOOK BUTTON
+            var editButton = document.createElement("button");
+
+            editButton.textContent = "Edit Book";
+            editButton.className = "action-button edit-button";
+
+            editButton.onclick = function() {
+
+                localStorage.setItem(
+                    "selectedTourist",
+                    JSON.stringify(tourist)
+                );
+
+                window.location.href = "EditTourist.html";
+
+            };
+
+            // DELETE BUTTON
+            var deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "action-button delete-button";
+
+            deleteButton.onclick = function() {
+
+                deleteTourist(tourist.id);
+
+            };
+
+            actions.appendChild(viewButton);
+            actions.appendChild(editButton);
+            actions.appendChild(deleteButton);
+
+        });
+
+        document.getElementById("emptyMessage").style.display =
+            filteredTourists.length === 0 ? "block" : "none";
+
+        updateDestinationFilter();
+
+    }
+
+    // FORMAT DATE
+    function formatDate(date) {
+
+        if (!date) {
+            return "";
+        }
+
+        var parts = date.split("-");
+
+        if (parts.length !== 3) {
+            return date;
+        }
+
+        return parts[1] + "/" + parts[2] + "/" + parts[0];
+
+    }
+
+    // UPDATE DESTINATION FILTER
+    function updateDestinationFilter() {
+
+        var select = document.getElementById("filterDestination");
+
+        var currentValue = select.value;
+
+        var destinations = [];
+
+        tourists.forEach(function(tourist) {
+
+            if (
+                tourist.destination &&
+                !destinations.includes(tourist.destination)
+            ) {
+                destinations.push(tourist.destination);
+            }
+
+        });
+
+        select.innerHTML =
+            '<option value="">All Tourist</option>';
+
+        destinations.forEach(function(destination) {
+
+            var option = document.createElement("option");
+
+            option.value = destination;
+            option.textContent = destination;
+
+            select.appendChild(option);
+
+        });
+
+        select.value = currentValue;
+
+    }
+
+    // DELETE TOURIST
+    function deleteTourist(id) {
+
+        var confirmDelete = confirm(
+            "Are you sure you want to delete tourist " + id + "?"
+        );
+
+        if (confirmDelete) {
+
+            tourists = tourists.filter(function(tourist) {
+                return tourist.id !== id;
+            });
+
+            saveTourists();
+            displayTourists();
+
+            alert("Tourist deleted successfully!");
+
+        }
+
+    }
+
+    // INITIAL DISPLAY
+    displayTourists();
+
+</script>
+
+</body>
+</html>

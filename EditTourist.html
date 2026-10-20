@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tourist - Travel and Tours</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f7f0f0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 215px;
+            background: #16869a;
+            color: white;
+            padding: 20px 8px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 29px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 35px;
+        }
+
+        .logo span {
+            color: #071d27;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-family: Georgia, serif;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 12px 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #45b9bb;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 15px 12px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #999;
+            padding: 5px 15px 12px;
+            margin-bottom: 30px;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: #222;
+            font-family: Georgia, serif;
+            font-weight: bold;
+        }
+
+        .admin {
+            font-family: Georgia, serif;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            font-size: 27px;
+            margin: 0 15px 35px;
+        }
+
+        .form-container {
+            padding: 0 15px;
+            max-width: 850px;
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 32px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        label {
+            font-family: Georgia, serif;
+            font-size: 16px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 36px;
+            padding: 8px;
+            border: 1px solid #999;
+            background: white;
+            font-family: Georgia, serif;
+            font-size: 13px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: 1px solid #16869a;
+        }
+
+        .booking-title {
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        .cost-input {
+            border-radius: 15px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 55px;
+            padding-bottom: 30px;
+            padding-right: 10px;
+        }
+
+        .button {
+            border: none;
+            border-radius: 6px;
+            padding: 10px 18px;
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .cancel-button {
+            background: #ed7777;
+        }
+
+        .update-button {
+            background: #8bd135;
+        }
+
+        .cancel-button:hover {
+            background: #d95c5c;
+        }
+
+        .update-button:hover {
+            background: #72b821;
+        }
+
+        .message {
+            color: #b00020;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .logo {
+                font-size: 23px;
+                margin-bottom: 15px;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                font-size: 13px;
+                padding: 9px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-container {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>◉</span> Travel&<br>
+            Tours
+        </div>
+
+        <a href="Tourist_listhtml.html" class="active">
+            ⌂ Tourist List
+        </a>
+
+        <a href="Tourpackage.html">
+            ♧ Tour Package
+        </a>
+
+        <a href="Addtourr.html">
+            ♙ Add Tourist
+        </a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <a href="travel_index.html" class="logout">
+                ⇥ Log out
+            </a>
+
+            <div class="admin">◉ &nbsp; Admin</div>
+
+        </header>
+
+        <h1>Edit Tourist Book</h1>
+
+        <div class="form-container">
+
+            <form id="editForm">
+
+                <h2>Tourist information</h2>
+
+                <div id="message" class="message"></div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="fullname">Fullname:</label>
+
+                        <input
+                            type="text"
+                            id="fullname"
+                            placeholder="Enter full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact">Contact Number:</label>
+
+                        <input
+                            type="text"
+                            id="contact"
+                            placeholder="09XXXXXXXXX"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="example@email.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+
+                        <input
+                            type="text"
+                            id="address"
+                            placeholder="Enter address"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <h2 class="booking-title">
+                    Booking Information
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="package">Tour Package:</label>
+
+                        <select id="package" required>
+                            <option value="">Select tour package</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookingDate">Booking Date:</label>
+
+                        <input
+                            type="date"
+                            id="bookingDate"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="travelers">Number of Travelers</label>
+
+                        <input
+                            type="number"
+                            id="travelers"
+                            min="1"
+                            value="1"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="totalCost">Total Package Cost:</label>
+
+                        <input
+                            type="text"
+                            id="totalCost"
+                            class="cost-input"
+                            value="₱ 0"
+                            readonly
+                        >
+                    </div>
+
+                </div>
+
+                <div class="button-container">
+
+                    <button
+                        type="button"
+                        class="button cancel-button"
+                        onclick="cancelEdit()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="button update-button"
+                    >
+                        Update
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+
+    // GET TOURIST RECORDS FROM LOCAL STORAGE
+    var tourists = JSON.parse(
+        localStorage.getItem("tourists")
+    ) || [];
+
+    // GET THE TOURIST SELECTED FROM THE TOURIST LIST
+    var selectedTourist = JSON.parse(
+        localStorage.getItem("selectedTourist")
+    );
+
+    // GET TOUR PACKAGES
+    var tourPackages = JSON.parse(
+        localStorage.getItem("tourPackages")
+    ) || [];
+
+    var selectedPackage = null;
+
+    // CONVERT DIFFERENT DATE FORMATS TO YYYY-MM-DD
+    function formatDate(dateValue) {
+
+        if (!dateValue) {
+            return "";
+        }
+
+        var dateText = String(dateValue);
+
+        // Already in YYYY-MM-DD format
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateText)) {
+            return dateText;
+        }
+
+        // Convert dates such as 06/13/2026
+        var parts = dateText.split("/");
+
+        if (parts.length === 3) {
+
+            var month = parts[0].padStart(2, "0");
+            var day = parts[1].padStart(2, "0");
+            var year = parts[2];
+
+            return year + "-" + month + "-" + day;
+        }
+
+        return "";
+    }
+
+    // DISPLAY TOUR PACKAGES IN THE DROPDOWN
+    function loadPackages() {
+
+        var packageSelect = document.getElementById("package");
+
+        packageSelect.innerHTML =
+            '<option value="">Select tour package</option>';
+
+        tourPackages.forEach(function(item, index) {
+
+            var option = document.createElement("option");
+
+            option.value = String(index);
+
+            var name = item.tourName || item.destination ||
+                item.actualDestination || "Tour Package";
+
+            var destination = item.actualDestination || "";
+
+            var duration = item.duration || "";
+
+            var price = Number(item.price) || 0;
+
+            option.textContent = name +
+                (destination && destination !== name
+                    ? " - " + destination : "") +
+                (duration ? " - " + duration : "") +
+                " - ₱" + price.toLocaleString("en-PH");
+
+            packageSelect.appendChild(option);
+
+        });
+
+    }
+
+    // FIND THE PACKAGE PREVIOUSLY BOOKED BY THE TOURIST
+    function findExistingPackage() {
+
+        if (!selectedTourist) {
+            return;
+        }
+
+        var foundIndex = -1;
+
+        for (var i = 0; i < tourPackages.length; i++) {
+
+            if (
+                selectedTourist.packageID &&
+                String(tourPackages[i].id) ===
+                String(selectedTourist.packageID)
+            ) {
+                foundIndex = i;
+                break;
+            }
+
+            var packageName = tourPackages[i].tourName ||
+                tourPackages[i].destination ||
+                tourPackages[i].actualDestination;
+
+            if (
+                foundIndex === -1 &&
+                packageName === selectedTourist.packageName
+            ) {
+                foundIndex = i;
+            }
+        }
+
+        if (foundIndex !== -1) {
+
+            document.getElementById("package").value =
+                String(foundIndex);
+
+        }
+    }
+
+    // FILL THE FORM WITH EXISTING TOURIST INFORMATION
+    function loadTourist() {
+
+        if (!selectedTourist) {
+
+            document.getElementById("message").textContent =
+                "No tourist selected. Please select a tourist from the list first.";
+
+            document.getElementById("editForm").style.display =
+                "none";
+
+            return;
+        }
+
+        document.getElementById("fullname").value =
+            selectedTourist.name || "";
+
+        document.getElementById("contact").value =
+            selectedTourist.contact || "";
+
+        document.getElementById("email").value =
+            selectedTourist.email || "";
+
+        document.getElementById("address").value =
+            selectedTourist.address || "";
+
+        document.getElementById("bookingDate").value =
+            formatDate(
+                selectedTourist.bookingDate ||
+                selectedTourist.date
+            );
+
+        document.getElementById("travelers").value =
+            selectedTourist.travelers || 1;
+
+        loadPackages();
+
+        findExistingPackage();
+
+        calculateCost();
+
+    }
+
+    // CALCULATE TOTAL PACKAGE COST
+    function calculateCost() {
+
+        var packageIndex =
+            document.getElementById("package").value;
+
+        var travelers = Number(
+            document.getElementById("travelers").value
+        );
+
+        var total = 0;
+
+        selectedPackage = null;
+
+        if (
+            packageIndex !== "" &&
+            tourPackages[Number(packageIndex)]
+        ) {
+
+            selectedPackage =
+                tourPackages[Number(packageIndex)];
+
+            var price = Number(selectedPackage.price) || 0;
+
+            if (travelers > 0) {
+                total = price * travelers;
+            }
+
+        }
+
+        document.getElementById("totalCost").value =
+            "₱ " + total.toLocaleString("en-PH", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+    }
+
+    // UPDATE TOTAL WHEN PACKAGE OR TRAVELERS CHANGE
+    document.getElementById("package").onchange =
+        calculateCost;
+
+    document.getElementById("travelers").oninput =
+        calculateCost;
+
+    // UPDATE EXISTING TOURIST RECORD
+    document.getElementById("editForm").onsubmit =
+        function(event) {
+
+            event.preventDefault();
+
+            if (!selectedTourist) {
+                alert("Please select a tourist first.");
+                return;
+            }
+
+            if (!selectedPackage) {
+                alert("Please select a tour package.");
+                return;
+            }
+
+            var travelers = Number(
+                document.getElementById("travelers").value
+            );
+
+            if (travelers < 1 || !Number.isInteger(travelers)) {
+                alert("Please enter a valid number of travelers.");
+                return;
+            }
+
+            // FIND THE EXISTING TOURIST BY ID
+            var touristIndex = tourists.findIndex(
+                function(item) {
+
+                    return String(item.id) ===
+                        String(selectedTourist.id);
+
+                }
+            );
+
+            if (touristIndex === -1) {
+
+                alert(
+                    "Tourist record not found. Please return to the Tourist List."
+                );
+
+                return;
+            }
+
+            var packageName = selectedPackage.tourName ||
+                selectedPackage.destination ||
+                selectedPackage.actualDestination;
+
+            var packagePrice = Number(selectedPackage.price) || 0;
+
+            // UPDATE THE EXISTING RECORD
+            tourists[touristIndex] = {
+
+                ...tourists[touristIndex],
+
+                id: selectedTourist.id,
+
+                name: document.getElementById("fullname").value.trim(),
+
+                contact: document.getElementById("contact").value.trim(),
+
+                email: document.getElementById("email").value.trim(),
+
+                address: document.getElementById("address").value.trim(),
+
+                destination: selectedPackage.actualDestination ||
+                    selectedPackage.destination || packageName,
+
+                packageID: selectedPackage.id,
+
+                packageName: packageName,
+
+                packagePrice: packagePrice,
+
+                duration: selectedPackage.duration || "",
+
+                date: document.getElementById("bookingDate").value,
+
+                bookingDate: document.getElementById("bookingDate").value,
+
+                travelers: travelers,
+
+                totalCost: packagePrice * travelers
+
+            };
+
+            // SAVE THE UPDATED LIST
+            localStorage.setItem(
+                "tourists",
+                JSON.stringify(tourists)
+            );
+
+            // UPDATE THE SELECTED TOURIST TOO
+            localStorage.setItem(
+                "selectedTourist",
+                JSON.stringify(tourists[touristIndex])
+            );
+
+            alert("Tourist information updated successfully!");
+
+            // RETURN TO THE TOURIST LIST
+            window.location.href = "Tourist_listhtml.html";
+
+        };
+
+    // CANCEL WITHOUT SAVING CHANGES
+    function cancelEdit() {
+
+        window.location.href = "Tourist_listhtml.html";
+
+    }
+
+    // LOAD DATA WHEN THE PAGE OPENS
+    loadTourist();
+
+</script>
+
+</body>
+</html>

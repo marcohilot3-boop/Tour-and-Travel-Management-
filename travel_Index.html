@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel and Tours Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+       
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+    background: #ffffff;
+    display: block;
+}
+
+.laptop-screen {
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    background: white;
+    box-shadow: none;
+}
+
+.login-page {
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+    padding: 45px;
+    box-sizing: border-box;
+
+    background-image:
+        linear-gradient(rgba(0,0,0,0.08), rgba(0,0,0,0.08)),
+        url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=85");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 750px) {
+    .login-page {
+        flex-direction: column;
+        justify-content: center;
+        padding: 25px 15px;
+    }
+
+    .system-title {
+        text-align: center;
+        font-size: 23px;
+    }
+
+    .login-card {
+        padding: 28px;
+    }
+}
+
+
+        .logo {
+            width: 38px;
+            height: 38px;
+            margin: 0 auto 10px;
+            border-radius: 10px;
+            background: #b6e7e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .brand {
+            text-align: center;
+            color: #202938;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #89909b;
+            font-size: 11px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #344054;
+            margin-bottom: 8px;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e3e6eb;
+            background: #f8f9fb;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .input-box:focus,
+        .password-box:focus-within {
+            border-color: #7ccccc;
+        }
+
+        .password-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e3e6eb;
+            background: #f8f9fb;
+            border-radius: 7px;
+            margin-bottom: 14px;
+        }
+
+        .password-box input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 12px;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .show-password {
+            border: none;
+            background: transparent;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            margin-bottom: 22px;
+            gap: 5px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .remember input {
+            cursor: pointer;
+        }
+
+        .forgot {
+            border: none;
+            background: none;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #344054;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            background: #202938;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .login-button:hover {
+            background: #344b67;
+        }
+
+        .message {
+            text-align: center;
+            color: #c0392b;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        .upload-button {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            background: white;
+            color: #202938;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        #backgroundUpload {
+            display: none;
+        }
+
+        @media (max-width: 750px) {
+            .login-page {
+                flex-direction: column;
+                padding: 30px 15px;
+            }
+
+            .system-title {
+                text-align: center;
+                font-size: 23px;
+            }
+
+            .login-card {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="laptop-screen">
+
+        <section class="login-page" id="loginPage">
+
+            <h1 class="system-title">
+                Travels and Tours<br>
+                Management System
+            </h1>
+
+            <div class="login-card">
+
+                <div class="logo">✈</div>
+
+                <h2 class="brand">TRAVEL&TOURS</h2>
+                <p class="subtitle">Admin Authorize only <br> Type any text to log in
+                </p>
+
+                <form id="loginForm">
+
+                    <label for="username">Username:</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        class="input-box"
+                        placeholder="name@example.com"
+                        required
+                    >
+
+                    <label for="password">Password</label>
+
+                    <div class="password-box">
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            onclick="togglePassword()"
+                            title="Show or hide password"
+                        >👁</button>
+                    </div>
+
+                    <div class="options">
+
+                        <label class="remember">
+                            <input type="checkbox" id="rememberMe">
+                            Remember me
+                        </label>
+
+                        <button
+                            type="button"
+                            class="forgot"
+                            onclick="forgotPassword()"
+                        >
+                            Forgot password?
+                        </button>
+
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Sign in
+                    </button>
+
+                    <p class="message" id="message"></p>
+
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- UPLOAD BACKGROUND IMAGE -->
+    <input
+        type="file"
+        id="backgroundUpload"
+        accept="image/*"
+        onchange="changeBackground(event)"
+    >
+
+    <button
+        class="upload-button"
+        onclick="document.getElementById('backgroundUpload').click()"
+    >
+        🖼 Change Background
+    </button>
+
+    <script>
+        // SYSTEM INFORMATION IN JSON FORMAT
+        var systemData = {
+            systemName: "Travel and Tours Management System",
+            companyName: "TRAVEL&TOURS",
+            nextPage: "Tourist_listhtml.html"
+        };
+
+        // LOAD SAVED USERNAME
+        window.onload = function() {
+
+            var savedUsername = localStorage.getItem("savedUsername");
+
+            if (savedUsername) {
+                document.getElementById("username").value = savedUsername;
+                document.getElementById("rememberMe").checked = true;
+            }
+
+            // CHECK EXISTING SESSION
+            var currentUser = sessionStorage.getItem("currentUser");
+
+            if (currentUser) {
+                window.location.href = "Tourist_listhtml.html"
+            }
+        };
+
+        // LOGIN AND PROCEED TO NEXT WEBPAGE
+        document.getElementById("loginForm").onsubmit = function(event) {
+
+            event.preventDefault();
+
+            var username = document.getElementById("username").value.trim();
+            var password = document.getElementById("password").value;
+
+            if (username === "" || password.trim() === "") {
+                document.getElementById("message").textContent =
+                    "Please enter your username and password.";
+                return;
+            }
+
+            // SAVE USERNAME IF REMEMBER ME IS CHECKED
+            if (document.getElementById("rememberMe").checked) {
+                localStorage.setItem("savedUsername", username);
+            } else {
+                localStorage.removeItem("savedUsername");
+            }
+
+            // SAVE DEMO LOGIN SESSION
+            sessionStorage.setItem("currentUser", username);
+
+            // NEXT WEBPAGE LINK
+            // PALITAN ANG dashboard.html KUNG IBA ANG FILE NAME MO
+            window.location.href = "Tourist_listhtml.html"
+        };
+
+        // SHOW OR HIDE PASSWORD
+        function togglePassword() {
+
+            var passwordInput = document.getElementById("password");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+
+        // FORGOT PASSWORD
+        function forgotPassword() {
+
+            alert(
+                "Type any text to log in."
+            );
+        }
+
+        // CHANGE BACKGROUND USING AN UPLOADED IMAGE
+        function changeBackground(event) {
+
+            var file = event.target.files[0];
+
+            if (file) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+
+                    document.getElementById("loginPage").style.backgroundImage =
+                        "url('" + e.target.result + "')";
+
+                    document.getElementById("loginPage").style.backgroundSize =
+                        "cover";
+
+                    document.getElementById("loginPage").style.backgroundPosition =
+                        "center";
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+</body>
+</html>

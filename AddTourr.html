@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Tour - Travel and Tours</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f7f0f0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 218px;
+            background: #16869a;
+            color: white;
+            padding: 20px 8px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 29px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 35px;
+        }
+
+        .logo span {
+            color: #071d27;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-family: Georgia, serif;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 12px 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #45b9bb;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 15px 12px;
+        }
+
+        /* TOP BAR */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #999;
+            padding: 5px 15px 12px;
+            margin-bottom: 28px;
+        }
+
+        .logout {
+            color: #222;
+            text-decoration: none;
+            font-family: Georgia, serif;
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            color: #16869a;
+        }
+
+        .admin {
+            font-family: Georgia, serif;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        /* PAGE CONTENT */
+        h1 {
+            font-family: Georgia, serif;
+            font-size: 27px;
+            margin: 0 15px 28px;
+        }
+
+        .form-container {
+            padding: 0 15px;
+            max-width: 850px;
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            font-size: 21px;
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 32px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        label {
+            font-family: Georgia, serif;
+            font-size: 16px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 36px;
+            padding: 8px;
+            border: 1px solid #999;
+            background: white;
+            font-family: Georgia, serif;
+            font-size: 13px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #16869a;
+        }
+
+        /* FORM BUTTONS */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 80px;
+            padding-bottom: 30px;
+        }
+
+        .button {
+            border: none;
+            border-radius: 6px;
+            padding: 10px 17px;
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .cancel-button {
+            background: #ed7777;
+        }
+
+        .add-button {
+            background: #8bd135;
+        }
+
+        .cancel-button:hover {
+            background: #d95c5c;
+        }
+
+        .add-button:hover {
+            background: #72b821;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .logo {
+                font-size: 23px;
+                margin-bottom: 15px;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                font-size: 13px;
+                padding: 9px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .button-container {
+                margin-top: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>◉</span> Travel&<br>
+            Tours
+        </div>
+
+        <a href="Tourist_listhtml.html">⌂ Tourist List</a>
+
+        <a href="Tourpackage.html" class="active">
+            ♧ Tour Package
+        </a>
+
+        <a href="Addtourist.html">♙ Add Tourist</a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <a href="travel_index.html" class="logout">
+                ⇥ Log out
+            </a>
+
+            <div class="admin">◉ &nbsp; Admin</div>
+
+        </header>
+
+        <h1>Add Tour</h1>
+
+        <div class="form-container">
+
+            <h2>Enter the tour package details.</h2>
+
+            <form id="tourForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="tourName">
+                            Tour package name:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="tourName"
+                            placeholder="Tour name:"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destination">
+                            Destination
+                        </label>
+
+                        <input
+                            type="text"
+                            id="destination"
+                            placeholder="Enter destination"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Prices:</label>
+
+                        <input
+                            type="number"
+                            id="price"
+                            placeholder="₱"
+                            min="1"
+                            step="0.01"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duration">Duration days</label>
+
+                        <select id="duration" required>
+                            <option value="">Duration days</option>
+                            <option value="1day">1 day</option>
+                            <option value="2days">2 days</option>
+                            <option value="3days">3 days</option>
+                            <option value="4days">4 days</option>
+                            <option value="5days">5 days</option>
+                            <option value="6days">6 days</option>
+                            <option value="7days">7 days</option>
+                            <option value="8days">8 days</option>
+                            <option value="9days">9 days</option>
+                            <option value="10days">10 days</option>
+                            <option value="14days">14 days</option>
+                            <option value="30days">30 days</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="button-container">
+
+                    <button
+                        type="button"
+                        class="button cancel-button"
+                        onclick="cancelForm()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="button add-button"
+                    >
+                        Add Tour
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+
+    // GET EXISTING TOUR PACKAGES
+    var tourPackages = JSON.parse(
+        localStorage.getItem("tourPackages")
+    );
+
+    if (!tourPackages) {
+        tourPackages = [];
+    }
+
+    // SAVE TOUR PACKAGE
+    document.getElementById("tourForm").onsubmit =
+        function(event) {
+
+            event.preventDefault();
+
+            var tourName = document.getElementById("tourName")
+                .value.trim();
+
+            var destination = document.getElementById("destination")
+                .value.trim();
+
+            var price = Number(
+                document.getElementById("price").value
+            );
+
+            var duration = document.getElementById("duration").value;
+
+            if (tourName === "" || destination === "") {
+                alert("Please complete all fields.");
+                return;
+            }
+
+            if (price <= 0 || !Number.isFinite(price)) {
+                alert("Please enter a valid price.");
+                return;
+            }
+
+            // CREATE A NEW PACKAGE ID
+            var highestID = 0;
+
+            tourPackages.forEach(function(item) {
+
+                var number = parseInt(
+                    String(item.id).replace("TP", "")
+                );
+
+                if (!isNaN(number) && number > highestID) {
+                    highestID = number;
+                }
+
+            });
+
+            var newID = "TP" +
+                String(highestID + 1).padStart(3, "0");
+
+            // CREATE NEW TOUR PACKAGE
+            var newPackage = {
+
+                id: newID,
+
+                // Used as the package name in the existing list
+                destination: tourName,
+
+                // Actual destination entered in the form
+                actualDestination: destination,
+
+                tourName: tourName,
+                price: price,
+                duration: duration
+
+            };
+
+            // ADD PACKAGE TO THE ARRAY
+            tourPackages.push(newPackage);
+
+            // SAVE TO LOCAL STORAGE
+            localStorage.setItem(
+                "tourPackages",
+                JSON.stringify(tourPackages)
+            );
+
+            alert("Tour package added successfully!");
+
+            // OPEN TOUR PACKAGE LIST
+            window.location.href = "Tourpackage.html";
+
+        };
+
+    // CANCEL AND RETURN TO TOURIST LIST
+    function cancelForm() {
+
+        window.location.href = "Tourist_listhtml.html";
+
+    }
+
+</script>
+
+</body>
+</html>
